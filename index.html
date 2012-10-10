@@ -28,7 +28,7 @@
         </ul>
       </header>
       <section>
-        <p>Zerver is a Node.js-based webserver that lets you seamlessly make server API calls as if they were a library on the client.</p>
+        <p>Zerver is a lightweight Node.js-based webserver that lets you seamlessly make server API calls as if they were a library on the client. The goal is to provide a developer-focused toolset and remove all the boilerplate involved in serving a webapp.</p>
 
 <h3>Install</h3>
 
@@ -46,17 +46,19 @@ website-dir/zerver/MyAPI.js
 <p>Everything in <code>website-dir</code> will be served as static content except for code in <code>zerver/</code> which will run on the server.</p>
 
 <div class="highlight"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
-    <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">);</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">stuff</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">);</span> <span class="c1">// 5</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">'data'</span> <span class="p">});</span>
 <span class="p">};</span>
 </pre></div>
 
 <div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
-    <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">({</span> <span class="nx">stuff</span><span class="o">:</span> <span class="s1">'hi from client'</span> <span class="p">},</span> <span class="mi">5</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">more</span><span class="p">);</span> <span class="c1">// "data"</span>
     <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
@@ -65,6 +67,10 @@ website-dir/zerver/MyAPI.js
 zerver website-dir
 <span class="c"># go to http://localhost:8888/ to view the magic</span>
 </pre></div>
+
+<h3>What just happened?</h3>
+
+<p><code>MyAPI.logStuff</code> automatically serializes the arguments of the function call and makes an AJAX request to the server. The server runs the function in <code>website-dir/zerver/MyAPI.js</code> and responds to the client in a similar way.</p>
 
 <h3>Require syntax</h3>
 
