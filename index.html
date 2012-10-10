@@ -53,7 +53,7 @@ website-dir/zerver/MyAPI.js
 </pre></div>
 
 <div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
     <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
