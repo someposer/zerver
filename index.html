@@ -102,6 +102,30 @@ zerver website-dir
 
 <p>Any webpage being viewed that has a Zerver script on it (<code>website-dir/index.html</code>) will automatically refresh when any of its code is edited. You can edit code and immediately see feedback on how it effects your running webapp.</p>
 
+<h1>ExpressJS integration</h1>
+
+<p>Zerver integrates well with Express, providing the same functionality to any existing webapp.</p>
+
+<div class="highlight"><pre><span class="c1">// "app" is an ExpressJS app instance</span>
+<span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">zerver</span><span class="p">.</span><span class="nx">middleware</span><span class="p">(</span><span class="s1">'path/to/zerver/scripts'</span><span class="p">,</span> <span class="s1">'url/to/zerve/at'</span><span class="p">)</span> <span class="p">);</span>
+</pre></div>
+
+<p>Along with the rest of your Express app, Zerver scripts will be accessible the specified path (<code>url/to/zerve/at</code>) for importing into your client-side code.</p>
+
+<h1>Node module</h1>
+
+<p>A convenient tool for testing and server-to-server integration is the NodeJS Zerver module.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
+
+<span class="nx">zerver</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://localhost:8888/zerver/'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">myzerver</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myzerver</span><span class="p">.</span><span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from another server'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
 <h3>TODO</h3>
 
 <p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
