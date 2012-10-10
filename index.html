@@ -46,19 +46,17 @@ website-dir/zerver/MyAPI.js
 <p>Everything in <code>website-dir</code> will be served as static content except for code in <code>zerver/</code> which will run on the server.</p>
 
 <div class="highlight"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">stuff</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">num</span><span class="p">);</span> <span class="c1">// 5</span>
-    <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">more</span><span class="o">:</span> <span class="s1">'data'</span> <span class="p">});</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 
 <div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
-    <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">({</span> <span class="nx">stuff</span><span class="o">:</span> <span class="s1">'hi from client'</span> <span class="p">},</span> <span class="mi">5</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">more</span><span class="p">);</span> <span class="c1">// "data"</span>
     <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
@@ -71,6 +69,8 @@ zerver website-dir
 <h3>What just happened?</h3>
 
 <p><code>MyAPI.logStuff</code> automatically serializes the arguments of the function call and makes an AJAX request to the server. The server runs the function in <code>website-dir/zerver/MyAPI.js</code> and responds to the client in a similar way.</p>
+
+<p>Any amount of arguments can be used in the function calls as long as they are JSON stringify-able (with the exception of the callback function).</p>
 
 <p>Note: any server code in a subdirectory of <code>website-dir/zerver</code> will not be available for import on the client allowing for libraries of private server functionality.</p>
 
@@ -126,21 +126,23 @@ zerver website-dir
 <span class="p">});</span>
 </pre></div>
 
-<h3>TODO</h3>
+<h1>Advanced usage</h1>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h3>Zerver options</h3>
 
-<h3>Rather Drive Stick?</h3>
+<p>//TODO</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<h3>Cross origin</h3>
 
-<h3>Authors and Contributors</h3>
+<p>//TODO</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h3>Script names</h3>
 
-<h3>Support or Contact</h3>
+<p>//TODO</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<h3>Error handling</h3>
+
+<p>//TODO</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/jairajs89">jairajs89</a></p>
