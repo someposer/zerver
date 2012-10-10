@@ -20,14 +20,10 @@
         <p class="header">client-integrated webapp server</p>
 
         <ul>
-<!--
           <li class="download"><a class="buttons" href="https://github.com/jairajs89/zerver/zipball/master">Download ZIP</a></li>
           <li class="download"><a class="buttons" href="https://github.com/jairajs89/zerver/tarball/master">Download TAR</a></li>
--->
           <li><a class="buttons github" href="https://github.com/jairajs89/zerver">View On GitHub</a></li>
         </ul>
-
-        <p class="header">npm install -g zerver</p>
 
         <p class="header">This project is maintained by <a class="header name" href="https://github.com/jairajs89">jairajs89</a></p>
 
@@ -53,6 +49,7 @@ website-dir/zerver/MyAPI.js
 <p>Everything in <code>website-dir</code> will be served as static content except for code in <code>zerver/</code> which will run on the server.</p>
 
 <div class="highlight"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
+<span class="c1">// this runs on your server</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
     <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">);</span>
@@ -60,6 +57,7 @@ website-dir/zerver/MyAPI.js
 </pre></div>
 
 <div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
+<span class="c">&lt;!-- this runs in the browser --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
     <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
