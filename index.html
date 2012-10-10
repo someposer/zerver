@@ -72,6 +72,8 @@ zerver website-dir
 
 <p><code>MyAPI.logStuff</code> automatically serializes the arguments of the function call and makes an AJAX request to the server. The server runs the function in <code>website-dir/zerver/MyAPI.js</code> and responds to the client in a similar way.</p>
 
+<p>Note: any server code in a subdirectory of <code>website-dir/zerver</code> will not be available for import on the client allowing for libraries of private server functionality.</p>
+
 <h3>Require syntax</h3>
 
 <div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
@@ -83,6 +85,22 @@ zerver website-dir
     <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
+
+<h3>Debug mode</h3>
+
+<div class="highlight"><pre>zerver -d website-dir
+</pre></div>
+
+<p>Zerver will automatically reload the server modules when any server-side code is edited. This is allows for rapid development and testing of server-side code.</p>
+
+<h3>Auto-refresh mode</h3>
+
+<div class="highlight"><pre>zerver -dr website-dir
+</pre></div>
+
+<p>Any webpage being viewed that has a Zerver script on it (<code>website-dir/index.html</code>) will automatically refresh when any of its code is edited. You can edit code and immediately see feedback on how it effects your running webapp.</p>
+
+<h3>TODO</h3>
 
 <p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
 
