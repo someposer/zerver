@@ -171,7 +171,28 @@ zerver --manifest<span class="o">=</span>path/to/cache.manifest website-dir
 
 <h3>Error handling</h3>
 
-<p>//TODO</p>
+<div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// API call failed for some reason</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorType</span> <span class="o">===</span> <span class="s1">'library'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// API error in your code</span>
+                <span class="c1">// this.errorString will have a description</span>
+                <span class="c1">// this.errorString will be the exception if thrown</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorSting</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorType</span> <span class="o">===</span> <span class="s1">'zerver'</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// http error or zerver failed</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorSting</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/jairajs89">jairajs89</a></p>
