@@ -1,43 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Zerver : client-integrated webapp server" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Zerver by jairajs89</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Zerver</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Zerver</h1>
+        <p class="header">client-integrated webapp server</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jairajs89/zerver">View on GitHub</a>
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/jairajs89/zerver/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/jairajs89/zerver/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/jairajs89/zerver">View On GitHub</a></li>
+        </ul>
 
-          <h1 id="project_title">Zerver</h1>
-          <h2 id="project_tagline">client-integrated webapp server</h2>
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/jairajs89">jairajs89</a></p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jairajs89/zerver/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jairajs89/zerver/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Install</h3>
-
-<div class="highlight"><pre>npm install -g zerver <span class="c"># you may need to sudo</span>
-zerver website-dir <span class="c"># run the server</span>
-</pre></div>
-
-<h3>Basic Usage</h3>
+      </header>
+      <section>
+        <h3>Basic Usage</h3>
 
 <p>Let's say you have a directory of this structure.</p>
 
@@ -47,7 +40,10 @@ website-dir/zerver/MyAPI.js
 
 <p>Long story short: everything stored in this directory will be served as static code except for the content in <code>zerver/</code> which will run on the server.</p>
 
-<div class="highlight"><pre><span class="c"># run the server</span>
+<div class="highlight"><pre><span class="c"># install zerver</span>
+npm install -g zerver <span class="c"># you may need to sudo</span>
+
+<span class="c"># run the server</span>
 zerver website-dir
 </pre></div>
 
@@ -93,17 +89,12 @@ zerver website-dir
 
 <p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Zerver maintained by <a href="https://github.com/jairajs89">jairajs89</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-
-              <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -113,7 +104,6 @@ zerver website-dir
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
