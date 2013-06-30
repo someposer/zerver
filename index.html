@@ -212,8 +212,23 @@ zerver --manifest<span class="o">=</span>path/to/cache.manifest website-dir
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
+          <script>
+            (function (window, document) {
+              var externals = document.getElementsByTagName('a');
+              for (var i=0, l=externals.length; i<l; i++) {
+                externals[i].onclick = launchExternal;
+              }
+
+              function launchExternal () {
+                if (this.href && (window.parent !== window)) {
+                  window.parent.location = this.href;
+                  return false;
+                }
+              }
+            })(window, document);
+          </script>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		          <script type="text/javascript">
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
