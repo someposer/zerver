@@ -1,48 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Zerver by jairajs89</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <title>Zerver by jairajs89</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Zerver</h1>
-        <p class="header">client-integrated webapp server</p>
+    <header>
+      <div class="inner">
+        <h1>Zerver</h1>
+        <h2>modern html5 webapp server</h2>
+        <a href="https://github.com/jairajs89/zerver" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-        <ul>
-<!--
-          <li class="download"><a class="buttons" href="https://github.com/jairajs89/zerver/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/jairajs89/zerver/tarball/master">Download TAR</a></li>
--->
-          <li><a class="buttons github" href="https://github.com/jairajs89/zerver">View On GitHub</a></li>
-        </ul>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>Zerver is a lightweight Node.js-based webserver that lets you seamlessly make server API calls as if they were a library on the client. The goal is to provide a developer-focused toolset and remove all the boilerplate involved in serving a webapp.</p>
 
-        <p class="header">npm install -g zerver</p>
+<h3>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h3>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/jairajs89">jairajs89</a></p>
-
-
-      </header>
-      <section>
-        <p>Zerver is a lightweight Node.js-based webserver that lets you seamlessly make server API calls as if they were a library on the client. The goal is to provide a developer-focused toolset and remove all the boilerplate involved in serving a webapp.</p>
-
-<h3>Install</h3>
-
-<div class="highlight"><pre>npm install -g zerver
-<span class="c"># or add zerver to your package.json dependencies</span>
+<div class="highlight highlight-sh"><pre>npm install -g zerver
+<span class="c"># or add zerver to your package.json dependencies and run npm install</span>
 </pre></div>
 
-<h1>Basic usage</h1>
+<h1>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h1>
 
 <p>Let's say you have a directory of this structure.</p>
 
@@ -50,17 +46,18 @@
 website-dir/zerver/MyAPI.js
 </code></pre>
 
-<p>Everything in <code>website-dir</code> will be served as static content except for code in <code>zerver/</code> which will run on the server.</p>
+<p>Everything in <code>website-dir</code> will be served as static content except for code in <code>zerver/</code> which will run on the server.
+Only files on the topmost level of the zerver folder will be saved as api's i.e. files in subfolders under zerver will not be used unless they are specifically required in one of the main api files.</p>
 
-<div class="highlight"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
-<span class="c1">// this runs on your server</span>
+<div class="highlight highlight-js"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
+<span class="c1">// this runs on the server</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
     <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></div>
 
-<div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
 <span class="c">&lt;!-- this runs in the browser --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
@@ -70,12 +67,13 @@ website-dir/zerver/MyAPI.js
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
 
-<div class="highlight"><pre><span class="c"># run the server</span>
+<div class="highlight highlight-sh"><pre><span class="c"># run the server</span>
 zerver website-dir
-<span class="c"># go to http://localhost:8888/ to view the magic</span>
+<span class="c"># go to http://localhost:5000/ to view the magic</span>
 </pre></div>
 
-<h3>What just happened?</h3>
+<h3>
+<a name="what-just-happened" class="anchor" href="#what-just-happened"><span class="octicon octicon-link"></span></a>What just happened?</h3>
 
 <p><code>MyAPI.logStuff</code> automatically serializes the arguments of the function call and makes an AJAX request to the server. The server runs the function in <code>website-dir/zerver/MyAPI.js</code> and responds to the client in a similar way.</p>
 
@@ -83,9 +81,10 @@ zerver website-dir
 
 <p>Note: any server code in a subdirectory of <code>website-dir/zerver</code> will not be available for import on the client allowing for libraries of private server functionality.</p>
 
-<h3>Require syntax</h3>
+<h3>
+<a name="require-syntax" class="anchor" href="#require-syntax"><span class="octicon octicon-link"></span></a>Require syntax</h3>
 
-<div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/zerver/require.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
     <span class="kd">var</span> <span class="nx">MyAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'MyAPI'</span><span class="p">);</span>
@@ -95,80 +94,182 @@ zerver website-dir
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
 
-<h1>Tools</h1>
+<h2>
+<a name="zerver-options" class="anchor" href="#zerver-options"><span class="octicon octicon-link"></span></a>Zerver options</h2>
 
-<h3>Debug mode</h3>
+<div class="highlight highlight-sh"><pre><span class="c"># General usage</span>
+zerver <span class="o">[</span>options<span class="o">]</span> website-dir
 
-<div class="highlight"><pre>zerver -d website-dir
+<span class="c"># run server on a different port</span>
+zerver --port<span class="o">=</span>8000 website-dir
+
+-r, --refresh
+<span class="c"># Any webpage being viewed that has a Zerver script on it (`website-dir/index.html`)</span>
+<span class="c"># will automatically refresh when any of its code is edited.</span>
+<span class="c"># You can edit code and immediately see feedback on how it effects your running webapp.</span>
+
+-c, --cli
+<span class="c"># Creates a js shell to communicate with remote clients, press tab to enable.</span>
+<span class="c"># Any code run in this shell will be run on the client.</span>
+
+-V, --verbose
+<span class="c"># Enable verbose request logging</span>
+
+-l, --less
+<span class="c"># Automatically compile less into css</span>
+<span class="c"># Requires the less node module to work run: npm install less</span>
+
+-p, --production
+<span class="c"># Enables production mode (caching, concat, minfiy, gzip, etc)</span>
 </pre></div>
 
-<p>Zerver will automatically reload the server modules when any server-side code is edited. This is allows for rapid development and testing of server-side code.</p>
+<h3>
+<a name="command-line-interface" class="anchor" href="#command-line-interface"><span class="octicon octicon-link"></span></a>Command Line Interface</h3>
 
-<h3>Auto-refresh mode</h3>
+<p>The command line interface (the <code>cli</code> flag) allows you to communicate with the client during development</p>
 
-<div class="highlight"><pre>zerver -dr website-dir
+<p>For example:</p>
+
+<div class="highlight highlight-sh"><pre>zerver -cli website-dir
+
+<span class="c"># Press tab to enable the cli</span>
+&gt;&gt;&gt;
+<span class="c"># The following line will cause all clients listening to the server to refresh</span>
+&gt;&gt;&gt; window.location.reload<span class="o">()</span>;
+
+<span class="c"># You can also log things from the client</span>
+<span class="c"># The following line logs all the functions</span>
+<span class="c"># that are available in 'MyAPI'</span>
+&gt;&gt;&gt; console.log<span class="o">(</span>Object.keys<span class="o">(</span>MyAPI<span class="o">))</span>;
+log: <span class="o">[</span><span class="s2">"function1FromMyApi"</span>, <span class="s2">"function2FromMyApi"</span><span class="o">]</span>
+<span class="c"># Since anything that is logged on the client gets</span>
+<span class="c"># sent to the server you can see the result right in the command line</span>
 </pre></div>
 
-<p>Any webpage being viewed that has a Zerver script on it (<code>website-dir/index.html</code>) will automatically refresh when any of its code is edited. You can edit code and immediately see feedback on how it effects your running webapp.</p>
+<h2>
+<a name="production-mode" class="anchor" href="#production-mode"><span class="octicon octicon-link"></span></a>Production mode</h2>
 
-<h1>ExpressJS integration</h1>
+<p>Passing the <code>--production</code> flag on startup enables zervers production features.</p>
+
+<h3>
+<a name="inlining-files" class="anchor" href="#inlining-files"><span class="octicon octicon-link"></span></a>Inlining files</h3>
+
+<p>Given the following link</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/css/app.min.css?inline=1"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p>Zerver will create a <code>&lt;style&gt;</code> tag in place and place the css there instead, reducing the amount of requests to load files.</p>
+
+<p>The same can be done with images inside the css file</p>
+
+<div class="highlight highlight-css"><pre><span class="nt">background-image</span><span class="o">:</span> <span class="nt">url</span><span class="o">(/</span><span class="nt">img</span><span class="o">/</span><span class="nt">background</span><span class="nc">.png</span><span class="o">?</span><span class="nt">inline</span><span class="o">=</span><span class="nt">1</span><span class="o">);</span>
+</pre></div>
+
+<h3>
+<a name="gzip-and-minifying" class="anchor" href="#gzip-and-minifying"><span class="octicon octicon-link"></span></a>Gzip and minifying</h3>
+
+<p>Given the following files in your manifest.</p>
+
+<div class="highlight highlight-sh"><pre><span class="c"># zerver:js/main.min.js</span>
+js/cards.js
+js/app.js
+js/main.js
+<span class="c"># /zerver</span>
+</pre></div>
+
+<p>And the following in your HTML file:</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- zerver:js/main.min.js --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/cards.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/app.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/main.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!-- /zerver --&gt;</span>
+</pre></div>
+
+<p>When the server is run on production these files will be gzipped &amp; minified into a file called <code>main.min.js</code></p>
+
+<h3>
+<a name="manifest-file" class="anchor" href="#manifest-file"><span class="octicon octicon-link"></span></a>Manifest file</h3>
+
+<p>Zerver has automatic support for HTML5 appcache manifests. This means that Zerver will automatically detect their presence and make sure that clients always update when files referenced in the manifest have changed.
+The cache manifest file is a simple text file that lists the resources the browser should cache for offline access. It should be referenced at the top of your html file like this:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;html</span> <span class="na">manifest=</span><span class="s">"cache.manifest"</span><span class="nt">&gt;</span>
+...
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p>The cache manifest allows you to specify which files the browser should cache and make available to offline users. Your app will load and work correctly, even if the user presses the refresh button while they're offline.</p>
+
+<p>The advantage that Zerver brings with the cache manifest is that it will refresh the cache whenever files are changed.
+This fixes the main drawback of developing with a manifest as now you will always be working with the most up to date versions of the edited files.</p>
+
+<h3>
+<a name="default-options" class="anchor" href="#default-options"><span class="octicon octicon-link"></span></a>Default options</h3>
+
+<p>You can specify default options in an environment variable, to avoid having to type them every time or having different setups for different environments in which the code will run</p>
+
+<div class="highlight highlight-sh"><pre><span class="nb">export </span><span class="nv">ZERVER_FLAGS</span><span class="o">=</span><span class="s1">'-drl'</span>
+</pre></div>
+
+<h3>
+<a name="running-as-an-npm-script" class="anchor" href="#running-as-an-npm-script"><span class="octicon octicon-link"></span></a>Running as an npm script</h3>
+
+<p>Another way to save time when running zerver is to add your default run configurations to an npm script in your <code>package.json</code></p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"name"</span>    <span class="p">:</span> <span class="s2">"zerver-sample"</span> <span class="p">,</span>
+  <span class="nt">"version"</span> <span class="p">:</span> <span class="s2">"0.0.1"</span> <span class="p">,</span>
+  <span class="nt">"engines"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"node"</span> <span class="p">:</span> <span class="s2">"0.10.21"</span> <span class="p">,</span>
+    <span class="nt">"npm"</span>  <span class="p">:</span> <span class="s2">"1.3.11"</span>
+  <span class="p">},</span>
+  <span class="nt">"dependencies"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"zerver"</span> <span class="p">:</span> <span class="s2">"0.14.1"</span>
+  <span class="p">},</span>
+  <span class="nt">"scripts"</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"start"</span> <span class="p">:</span> <span class="s2">"zerver -rlc web"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Sample package.json file for a zerver application</p>
+
+<p>This setup allows you to simply enter <code>npm start</code> to run the command <code>zerver -rlc web</code>.</p>
+
+<h1>
+<a name="expressjs-integration" class="anchor" href="#expressjs-integration"><span class="octicon octicon-link"></span></a>ExpressJS integration</h1>
 
 <p>Zerver integrates well with Express, providing the same functionality to any existing webapp.</p>
 
-<div class="highlight"><pre><span class="c1">// "app" is an ExpressJS app instance</span>
+<div class="highlight highlight-js"><pre><span class="c1">// "app" is an ExpressJS app instance</span>
 <span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">zerver</span><span class="p">.</span><span class="nx">middleware</span><span class="p">(</span><span class="s1">'path/to/zerver/scripts'</span><span class="p">,</span> <span class="s1">'url/to/zerve/at'</span><span class="p">)</span> <span class="p">);</span>
 </pre></div>
 
 <p>Along with the rest of your Express app, Zerver scripts will be accessible the specified path (<code>url/to/zerve/at</code>) for importing into your client-side code.</p>
 
-<h1>Node module</h1>
+<h1>
+<a name="node-module" class="anchor" href="#node-module"><span class="octicon octicon-link"></span></a>Node module</h1>
 
 <p>A convenient tool for testing and server-to-server integration is the NodeJS Zerver module.</p>
 
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
 
-<span class="nx">zerver</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://localhost:8888/zerver/'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">myzerver</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">zerver</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://localhost:5000/zerver/'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">myzerver</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">myzerver</span><span class="p">.</span><span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from another server'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
     <span class="p">});</span>
 <span class="p">});</span>
 </pre></div>
 
-<h1>Advanced usage</h1>
-
-<h3>Zerver options</h3>
-
-<div class="highlight"><pre><span class="c"># run server on a different port</span>
-zerver --port<span class="o">=</span>8000 website-dir
-</pre></div>
-
-<div class="highlight"><pre><span class="c"># automatically append a comment timestamp whenever</span>
-<span class="c"># a HTML5 cache.manifest is requested</span>
-zerver -d --manifest<span class="o">=</span>path/to/cache.manifest website-dir
-
-<span class="c"># in production mode this will always have</span>
-<span class="c"># the timestamp of the time of deploy</span>
-zerver --manifest<span class="o">=</span>path/to/cache.manifest website-dir
-</pre></div>
-
-<h3>Cross origin</h3>
-
-<p>Zerver can automatically make a script available to multiple host origins. This is especially useful if you are including a Zerver script from a subdomain of your webapp.</p>
-
-<div class="highlight"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
-
-<span class="c1">// all any website to include your zerver script</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">_crossOrigin</span> <span class="o">=</span> <span class="s1">'*'</span><span class="p">;</span>
-</pre></div>
-
-<p>The value of <code>exports._crossOrigin</code> is exactly what will be served as the <code>Allow-Access-Control-Origin</code> header for cross origin requests if acceptable.</p>
-
-<h3>Script names</h3>
+<h3>
+<a name="script-names" class="anchor" href="#script-names"><span class="octicon octicon-link"></span></a>Script names</h3>
 
 <p>Zerver scripts can be globalised on the client under whatever name you please. If you are afraid of object name collisions simply define the query argument <code>name</code> for the script and it will be globalised as such.</p>
 
-<div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js?name=SomeOtherAPI"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
     <span class="nx">SomeOtherAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
@@ -177,58 +278,48 @@ zerver --manifest<span class="o">=</span>path/to/cache.manifest website-dir
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
 
-<h3>Error handling</h3>
+<h3>
+<a name="error-handling" class="anchor" href="#error-handling"><span class="octicon octicon-link"></span></a>Error handling</h3>
 
-<div class="highlight"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
 <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
     <span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// API call failed for some reason</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorType</span> <span class="o">===</span> <span class="s1">'library'</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// API error in your code</span>
-                <span class="c1">// this.errorString will have a description</span>
-                <span class="c1">// this.errorString will be the exception if thrown</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorSting</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorType</span> <span class="o">===</span> <span class="s1">'zerver'</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// http error or zerver failed</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">errorSting</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
+        <span class="c1">// this === MyAPI</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
+    <span class="p">}).</span><span class="nx">error</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// this === MyAPI</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span> <span class="c1">// error string explaining failure</span>
     <span class="p">});</span>
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
 
-<h1>Example apps</h1>
+<h1>
+<a name="example-apps" class="anchor" href="#example-apps"><span class="octicon octicon-link"></span></a>Example apps</h1>
 
 <p><a href="https://github.com/jairajs89/zerver/tree/master/examples/basic-app">Basic app</a></p>
 
 <p><a href="https://github.com/jairajs89/zerver/tree/master/examples/express-app">Express app</a></p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
-    </div>
-          <script>
-            (function (window, document) {
-              var externals = document.getElementsByTagName('a');
-              for (var i=0, l=externals.length; i<l; i++) {
-                externals[i].onclick = launchExternal;
-              }
+        </section>
 
-              function launchExternal () {
-                if (this.href && (window.parent !== window)) {
-                  window.parent.location = this.href;
-                  return false;
-                }
-              }
-            })(window, document);
-          </script>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-              <script type="text/javascript">
+        <aside id="sidebar">
+          <a href="https://github.com/jairajs89/zerver/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/jairajs89/zerver/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/jairajs89/zerver"></a> is maintained by <a href="https://github.com/jairajs89">jairajs89</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
