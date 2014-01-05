@@ -115,10 +115,6 @@ zerver --port<span class="o">=</span>8000 website-dir
 -V, --verbose
 <span class="c"># Enable verbose request logging</span>
 
--l, --less
-<span class="c"># Automatically compile less into css</span>
-<span class="c"># Requires the less node module to work run: npm install less</span>
-
 -p, --production
 <span class="c"># Enables production mode (caching, concat, minfiy, gzip, etc)</span>
 </pre></div>
@@ -130,17 +126,17 @@ zerver --port<span class="o">=</span>8000 website-dir
 
 <p>For example:</p>
 
-<div class="highlight highlight-sh"><pre>zerver -cli website-dir
+<div class="highlight highlight-sh"><pre>zerver --cli website-dir
 
 <span class="c"># Press tab to enable the cli</span>
 &gt;&gt;&gt;
 <span class="c"># The following line will cause all clients listening to the server to refresh</span>
-&gt;&gt;&gt; window.location.reload<span class="o">()</span>;
+&gt;&gt;&gt; window.location.reload<span class="o">()</span><span class="p">;</span>
 
 <span class="c"># You can also log things from the client</span>
 <span class="c"># The following line logs all the functions</span>
 <span class="c"># that are available in 'MyAPI'</span>
-&gt;&gt;&gt; console.log<span class="o">(</span>Object.keys<span class="o">(</span>MyAPI<span class="o">))</span>;
+&gt;&gt;&gt; console.log<span class="o">(</span>Object.keys<span class="o">(</span>MyAPI<span class="o">))</span><span class="p">;</span>
 log: <span class="o">[</span><span class="s2">"function1FromMyApi"</span>, <span class="s2">"function2FromMyApi"</span><span class="o">]</span>
 <span class="c"># Since anything that is logged on the client gets</span>
 <span class="c"># sent to the server you can see the result right in the command line</span>
@@ -210,7 +206,7 @@ This fixes the main drawback of developing with a manifest as now you will alway
 
 <p>You can specify default options in an environment variable, to avoid having to type them every time or having different setups for different environments in which the code will run</p>
 
-<div class="highlight highlight-sh"><pre><span class="nb">export </span><span class="nv">ZERVER_FLAGS</span><span class="o">=</span><span class="s1">'-rlc'</span>
+<div class="highlight highlight-sh"><pre><span class="nb">export </span><span class="nv">ZERVER_FLAGS</span><span class="o">=</span><span class="s1">'-rc'</span>
 </pre></div>
 
 <h3>
@@ -226,17 +222,17 @@ This fixes the main drawback of developing with a manifest as now you will alway
     <span class="nt">"npm"</span>  <span class="p">:</span> <span class="s2">"1.3.11"</span>
   <span class="p">},</span>
   <span class="nt">"dependencies"</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">"zerver"</span> <span class="p">:</span> <span class="s2">"0.14.3"</span>
+    <span class="nt">"zerver"</span> <span class="p">:</span> <span class="s2">"0.15.0"</span>
   <span class="p">},</span>
   <span class="nt">"scripts"</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">"start"</span> <span class="p">:</span> <span class="s2">"zerver -rlc web"</span>
+    <span class="nt">"start"</span> <span class="p">:</span> <span class="s2">"zerver -rc web"</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 <p>Sample package.json file for a zerver application</p>
 
-<p>This setup allows you to simply enter <code>npm start</code> to run the command <code>zerver -rlc web</code>.</p>
+<p>This setup allows you to simply enter <code>npm start</code> to run the command <code>zerver -rc web</code>.</p>
 
 <h1>
 <a name="expressjs-integration" class="anchor" href="#expressjs-integration"><span class="octicon octicon-link"></span></a>ExpressJS integration</h1>
@@ -245,38 +241,10 @@ This fixes the main drawback of developing with a manifest as now you will alway
 
 <div class="highlight highlight-js"><pre><span class="c1">// "app" is an ExpressJS app instance</span>
 <span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
-<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">zerver</span><span class="p">.</span><span class="nx">middleware</span><span class="p">(</span><span class="s1">'path/to/zerver/scripts'</span><span class="p">,</span> <span class="s1">'url/to/zerve/at'</span><span class="p">)</span> <span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">zerver</span><span class="p">.</span><span class="nx">middleware</span><span class="p">(</span><span class="s1">'path/containing/zerver/folder'</span><span class="p">)</span> <span class="p">);</span>
 </pre></div>
 
-<p>Along with the rest of your Express app, Zerver scripts will be accessible the specified path (<code>url/to/zerve/at</code>) for importing into your client-side code.</p>
-
-<h1>
-<a name="node-module" class="anchor" href="#node-module"><span class="octicon octicon-link"></span></a>Node module</h1>
-
-<p>A convenient tool for testing and server-to-server integration is the NodeJS Zerver module.</p>
-
-<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">zerver</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'zerver'</span><span class="p">);</span>
-
-<span class="nx">zerver</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'http://localhost:5000/zerver/'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">myzerver</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">myzerver</span><span class="p">.</span><span class="nx">MyAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from another server'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</pre></div>
-
-<h3>
-<a name="script-names" class="anchor" href="#script-names"><span class="octicon octicon-link"></span></a>Script names</h3>
-
-<p>Zerver scripts can be globalised on the client under whatever name you please. If you are afraid of object name collisions simply define the query argument <code>name</code> for the script and it will be globalised as such.</p>
-
-<div class="highlight highlight-html"><pre><span class="c">&lt;!-- in website-dir/index.html --&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"zerver/MyAPI.js?name=SomeOtherAPI"</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script&gt;</span>
-    <span class="nx">SomeOtherAPI</span><span class="p">.</span><span class="nx">logStuff</span><span class="p">(</span><span class="s1">'hi from client'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// "hi from server"</span>
-    <span class="p">});</span>
-<span class="nt">&lt;/script&gt;</span>
-</pre></div>
+<p>Along with the rest of your Express app, Zerver scripts will be accessible for importing into your client-side code.</p>
 
 <h3>
 <a name="error-handling" class="anchor" href="#error-handling"><span class="octicon octicon-link"></span></a>Error handling</h3>
@@ -314,7 +282,7 @@ This fixes the main drawback of developing with a manifest as now you will alway
 
           <p class="repo-owner"><a href="https://github.com/jairajs89/zerver"></a> is maintained by <a href="https://github.com/jairajs89">jairajs89</a>.</p>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
