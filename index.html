@@ -51,7 +51,7 @@ Only files on the topmost level of the zerver folder will be saved as api's i.e.
 
 <div class="highlight highlight-js"><pre><span class="c1">// in website-dir/zerver/MyAPI.js</span>
 <span class="c1">// this runs on the server</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">logStuff</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// 'hi from client'</span>
     <span class="nx">callback</span><span class="p">(</span><span class="s1">'hi from server'</span><span class="p">);</span>
 <span class="p">};</span>
