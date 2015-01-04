@@ -1,10 +1,12 @@
 var extend  = require('util')._extend,
 	fs      = require('fs'),
+	os      = require('os'),
 	path    = require('path'),
 	qs      = require('querystring'),
 	urllib  = require('url'),
 	uglify  = require('uglify-js'),
-	Cookies = require(__dirname+path.sep+'lib'+path.sep+'cookies');
+	Cookies = require(__dirname+path.sep+'lib'+path.sep+'cookies'),
+	Busboy  = require('busboy');
 
 require('coffee-script/register');
 
@@ -319,6 +321,11 @@ APICalls.prototype._customApiCall = function (req, func, finish) {
 			req.formBody = qs.parse(req.body);
 			extend(req.params, req.formBody);
 		}
+		if (req.headers['content-type'] && req.headers['content-type'].lastIndexOf('multipart/form-data', 0) == 0) {
+			req.formBody = req.body.fields;
+			extend(req.params, req.formBody);
+			req.files = req.body.files;
+		}
 
 		var val;
 		try {
@@ -451,13 +458,31 @@ function setupAPIObj(api, obj, functions) {
 }
 
 function getRequestBody(req, callback) {
-	var body = '';
-	req.on('data', function (chunk) {
-		body += chunk;
-	});
-	req.on('end', function () {
-		callback(body);
-	});
+	if (req.headers['content-type'] && req.headers['content-type'].lastIndexOf('multipart/form-data', 0) == 0) {
+		var body = { fields: {}, files: {}};
+		var busboy = new Busboy({headers: req.headers});
+
+		busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+			var saveTo = path.join(os.tmpDir(), path.basename(fieldname));
+			file.pipe(fs.createWriteStream(saveTo));
+			body.files[fieldname] = {filename: filename, path: saveTo};
+		});
+		busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
+			body.fields[fieldname] = val;
+		});
+		busboy.on('finish', function() {
+			callback(body);
+		});
+		req.pipe(busboy);
+	} else {
+		var body = '';
+		req.on('data', function (chunk) {
+			body += chunk;
+		});
+		req.on('end', function () {
+			callback(body);
+		});
+	}
 }
 
 function getClientHost(req) {
